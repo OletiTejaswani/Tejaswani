@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just One Question ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+background:linear-gradient(135deg,#ff9ec4,#ffd6e7);
+overflow:hidden;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+h1{
+color:#ff4081;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+margin:15px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+}
+
+#yes{
+background:#4CAF50;
+color:white;
+}
+
+#no{
+background:#f44336;
+color:white;
+position:relative;
+}
+
+.hearts{
+position:fixed;
+font-size:25px;
+animation:float 3s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-700px);opacity:0;}
+}
+</style>
+
+</head>
+<body>
+
+<div class="card" id="card">
+<h1>Do you like me? ❤️</h1>
+
+<button id="yes" onclick="love()">Yes 💖</button>
+
+<button id="no">No 💔</button>
+
+</div>
+
+<script>
+
+const no=document.getElementById("no");
+
+no.addEventListener("mouseover",()=>{
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
+no.style.position="fixed";
+no.style.left=x+"px";
+no.style.top=y+"px";
+});
+
+function love(){
+
+document.getElementById("card").innerHTML=`
+<h1>I Love You ❤️🥹</h1>
+<h2>Do you love me too?</h2>
+
+<button id="yes2" onclick="finish()">Yes 😍</button>
+
+<button id="no2"
+onmouseover="moveNo2(this)"
+style="background:#f44336;color:white;padding:12px 25px;border:none;border-radius:30px;">
+No 😅
+</button>
+`;
+
+}
+
+function moveNo2(btn){
+btn.style.position="fixed";
+btn.style.left=Math.random()*(window.innerWidth-100)+"px";
+btn.style.top=Math.random()*(window.innerHeight-50)+"px";
+}
+
+function finish(){
+
+document.body.innerHTML="<h1 style='color:white;font-size:45px;text-align:center;'>❤️ Yayyyyy!! I Love You Forever ❤️</h1>";
+
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="hearts";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.top="100vh";
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),3000);
+
+},200);
+
+}
+
+</script>
+
+</body>
+</html>
