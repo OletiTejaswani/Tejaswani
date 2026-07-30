@@ -1,27 +1,147 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>For Someone Special ❤️</title>
-<style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#ff9ec4,#ffd6e7);display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
-.card{background:#fff;padding:30px;border-radius:20px;max-width:650px;width:90%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-button{padding:12px 24px;margin:10px;border:none;border-radius:30px;font-size:18px;cursor:pointer}
-#yes{background:#4caf50;color:#fff}#no{background:#f44336;color:#fff;position:relative}#maybe{background:#9c27b0;color:#fff;position:relative}
-.hearts{position:fixed;font-size:24px;animation:f 4s linear forwards}@keyframes f{to{transform:translateY(-100vh);opacity:0}}
-</style></head><body>
-<div class="card"><h2 id="q"></h2><button id="yes">Yes ❤️</button><button id="no">No 💔</button><button id="maybe">Don't Know 🤔</button></div>
-<script>
-const qs=[
-"Do you smile when you see my messages? 😊",
-"Do you enjoy talking to me? ❤️",
-"Have I become someone special to you? 🥹",
-"Can I be your safe place? 🤍",
-"Would you let me make your bad days a little better? 🌸",
-"Will you let me heal your bad days, celebrate your good days, hold your hand through every challenge, and stand by your side forever? 💍❤️✨",
-"Will you hold my hand and never let it go? ❤️",
-"Will you grow old with me? ❤️",
-"Will you marry me? 💍❤️"];
-let i=0;const q=document.getElementById('q');q.textContent=qs[0];
-function run(b){b.style.position='fixed';b.style.left=Math.random()*(innerWidth-120)+'px';b.style.top=Math.random()*(innerHeight-60)+'px';}
-no.onmouseover=()=>run(no);maybe.onmouseover=()=>run(maybe);
-yes.onclick=()=>{i++;if(i<qs.length){q.textContent=qs[i];}else{document.body.innerHTML="<div class='card'><h1>❤️ You said YES ❤️</h1><p style='line-height:1.8'>You know... I didn't make this page just to ask you a question.<br><br>I made it because I wanted you to know how much you mean to me. ❤️<br><br>I promise to respect you, support your dreams, stand by your side through every challenge, celebrate every little victory with you, and keep choosing you every single day.<br><br>No relationship is perfect, but if it's with you, I'll always choose understanding over ego, patience over anger, and us over everything else.<br><br>Thank you for saying YES. ❤️<br><br>From this moment, my heart is yours... ❤️💍✨</p></div>";setInterval(()=>{let h=document.createElement('div');h.className='hearts';h.textContent='❤️';h.style.left=Math.random()*100+'vw';h.style.top='100vh';document.body.appendChild(h);setTimeout(()=>h.remove(),4000)},180);}};
-</script></body></html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>For Someone Special ❤️</title>
+  <style>
+    body{margin:0;font-family:Arial;background:linear-gradient(135deg,#ff9ec4,#ffd6e7);display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
+    .card{background:#fff;padding:30px;border-radius:20px;max-width:650px;width:90%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+    button{padding:12px 24px;margin:10px;border:none;border-radius:30px;font-size:18px;cursor:pointer}
+    #yes{background:#4caf50;color:#fff}
+    #no{background:#f44336;color:#fff;position:relative}
+    #maybe{background:#9c27b0;color:#fff;position:relative}
+    .hearts{position:fixed;font-size:24px;animation:f 4s linear forwards;pointer-events:none}
+    @keyframes f{to{transform:translateY(-100vh);opacity:0}}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h2 id="q"></h2>
+    <div>
+      <button id="yes">Yes ❤️</button>
+      <button id="no">No 💔</button>
+      <button id="maybe">Don't Know 🤔</button>
+    </div>
+  </div>
+
+  <script>
+    // Questions
+    const qs = [
+      "Do you smile when you see my messages? 😊",
+      "Do you enjoy talking to me? ❤️",
+      "Have I become someone special to you? 🥹",
+      "Can I be your safe place? 🤍",
+      "Would you let me make your bad days a little better? 🌸",
+      "Will you let me heal your bad days, celebrate your good days, hold your hand through every challenge, and stand by your side forever? 💍❤️✨",
+      "Will you hold my hand and never let it go? ❤️",
+      "Will you grow old with me? ❤️",
+      "Will you marry me? 💍❤️"
+    ];
+
+    // Elements
+    const q = document.getElementById('q');
+    const yes = document.getElementById('yes');
+    const no = document.getElementById('no');
+    const maybe = document.getElementById('maybe');
+    const card = document.getElementById('card');
+
+    // State (persist basic progress in localStorage so values don't disappear on reload)
+    let i = Number(localStorage.getItem('proposal_index') || 0);
+    let completed = localStorage.getItem('proposal_completed') === 'true';
+
+    function renderQuestion() {
+      if (completed) return showFinal();
+      q.textContent = qs[i] || '';
+    }
+
+    // Move a button to a random spot (used for 'no' and 'maybe')
+    function run(el) {
+      // ensure we have element and it's positioned
+      el.style.position = 'fixed';
+      const padding = 20; // keep away from edges
+      const w = Math.max(80, el.offsetWidth);
+      const h = Math.max(30, el.offsetHeight);
+      const left = Math.random() * (window.innerWidth - w - padding*2) + padding;
+      const top = Math.random() * (window.innerHeight - h - padding*2) + padding;
+      el.style.left = left + 'px';
+      el.style.top = top + 'px';
+      el.style.transition = 'left 0.15s, top 0.15s';
+    }
+
+    // Make hearts float up on the screen
+    function spawnHeart(x, y) {
+      const heart = document.createElement('div');
+      heart.className = 'hearts';
+      heart.textContent = '❤️';
+      heart.style.left = (x - 12) + 'px';
+      heart.style.top = (y - 12) + 'px';
+      heart.style.fontSize = (12 + Math.random()*28) + 'px';
+      document.body.appendChild(heart);
+      // remove after animation
+      setTimeout(() => heart.remove(), 4100);
+    }
+
+    // Final screen when user completes all questions
+    function showFinal() {
+      completed = true;
+      localStorage.setItem('proposal_completed', 'true');
+      // Clear card and show final message
+      card.innerHTML = `
+        <h1>❤️ You said YES ❤️</h1>
+        <p style="line-height:1.8">You know... I didn't make this page just to ask — I made it because every question came from my heart. Thank you for being here. 💖</p>
+        <button id="again" style="background:#2196f3;color:#fff;border-radius:12px;padding:10px 18px;font-size:16px;margin-top:12px">Play Again</button>
+      `;
+
+      // generate floating hearts periodically
+      const interval = setInterval(() => {
+        const x = window.innerWidth/2 + (Math.random()-0.5)*300;
+        const y = window.innerHeight - 40;
+        spawnHeart(x, y);
+      }, 400);
+
+      // remove interval if user navigates away or clicks play again
+      document.getElementById('again').onclick = () => {
+        clearInterval(interval);
+        completed = false;
+        i = 0;
+        localStorage.setItem('proposal_index', '0');
+        localStorage.setItem('proposal_completed', 'false');
+        // restore original markup (simple way)
+        location.reload();
+      };
+    }
+
+    // Button behaviors
+    no.addEventListener('mouseover', () => run(no));
+    maybe.addEventListener('mouseover', () => run(maybe));
+
+    yes.addEventListener('click', () => {
+      if (completed) return;
+      i++;
+      if (i < qs.length) {
+        localStorage.setItem('proposal_index', String(i));
+        renderQuestion();
+      } else {
+        localStorage.setItem('proposal_index', String(qs.length));
+        showFinal();
+      }
+    });
+
+    // Prevent keyboard focus trap moving buttons off screen
+    no.addEventListener('focus', () => run(no));
+    maybe.addEventListener('focus', () => run(maybe));
+
+    // Initialize
+    renderQuestion();
+
+    // Accessibility: allow keyboard to press yes with Enter
+    yes.addEventListener('keyup', (e) => { if (e.key === 'Enter') yes.click(); });
+
+    // If user reloads and had progressed, show progress
+    if (i > 0 && i < qs.length && !completed) {
+      renderQuestion();
+    }
+  </script>
+</body>
+</html>
