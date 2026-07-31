@@ -8,8 +8,6 @@
 
 <title>For Someone Special ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
 
 *{
@@ -30,7 +28,7 @@ align-items:center;
 
 overflow:hidden;
 
-font-family:'Poppins',sans-serif;
+font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 
 background:
 linear-gradient(
@@ -43,75 +41,91 @@ linear-gradient(
 
 background-size:400% 400%;
 
-animation:bgMove 12s infinite;
+animation:bgMove 12s ease infinite;
 
 }
 
 
 @keyframes bgMove{
 
-0%{background-position:0% 50%;}
+0%{
+background-position:0% 50%;
+}
 
-50%{background-position:100% 50%;}
+50%{
+background-position:100% 50%;
+}
 
-100%{background-position:0% 50%;}
+100%{
+background-position:0% 50%;
+}
 
 }
+
 
 
 .card{
 
 width:92%;
 
-max-width:620px;
+max-width:600px;
 
-padding:30px;
+padding:24px;
 
-border-radius:28px;
+border-radius:25px;
 
 background:rgba(255,255,255,0.32);
 
-backdrop-filter:blur(18px);
+backdrop-filter:blur(15px);
 
-box-shadow:0 20px 45px rgba(0,0,0,.18);
+box-shadow:0 15px 35px rgba(0,0,0,.18);
 
 text-align:center;
 
 }
 
 
+
 h1{
 
-font-family:'Great Vibes',cursive;
-
-font-size:48px;
+font-size:38px;
 
 color:#ff3f7f;
 
-margin-bottom:15px;
+margin-bottom:8px;
+
+font-family:'Georgia',serif;
 
 }
+
 
 
 #question{
 
-min-height:110px;
+min-height:85px;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
 
-font-size:21px;
+justify-content:center;
 
-line-height:1.5;
+font-size:18px;
+
+line-height:1.35;
+
+font-weight:500;
 
 color:#444;
+
+padding:8px;
+
+text-align:center;
 
 transition:.3s;
 
 }
+
 
 
 .buttons{
@@ -120,32 +134,34 @@ display:flex;
 
 justify-content:center;
 
-gap:12px;
+gap:10px;
 
 flex-wrap:wrap;
 
-margin-top:15px;
+margin-top:10px;
 
 }
+
 
 
 button{
 
-padding:12px 24px;
+padding:10px 20px;
+
+font-size:15px;
 
 border:none;
 
-border-radius:30px;
-
-font-size:16px;
+border-radius:25px;
 
 cursor:pointer;
 
-font-family:'Poppins',sans-serif;
+font-family:inherit;
 
 transition:.3s;
 
 }
+
 
 
 button:hover{
@@ -153,6 +169,7 @@ button:hover{
 transform:scale(1.05);
 
 }
+
 
 
 #yes{
@@ -182,20 +199,22 @@ color:white;
 }
 
 
+
 .hearts{
 
 position:fixed;
 
-font-size:25px;
+font-size:24px;
 
 animation:fly 4s linear forwards;
 
 }
 
 
+
 @keyframes fly{
 
-from{
+0%{
 
 transform:translateY(0);
 
@@ -203,7 +222,7 @@ opacity:1;
 
 }
 
-to{
+100%{
 
 transform:translateY(-900px);
 
@@ -219,29 +238,34 @@ opacity:0;
 
 .card{
 
-padding:22px;
+width:94%;
+
+padding:20px;
 
 }
+
 
 h1{
 
-font-size:38px;
+font-size:32px;
 
 }
+
 
 #question{
 
-font-size:18px;
+font-size:16px;
 
-min-height:90px;
+min-height:75px;
 
 }
+
 
 button{
 
 font-size:14px;
 
-padding:11px 18px;
+padding:9px 16px;
 
 }
 
@@ -257,11 +281,8 @@ padding:11px 18px;
 
 
 <form id="web3form"
-
 action="https://api.web3forms.com/submit"
-
 method="POST"
-
 style="display:none;">
 
 
@@ -280,21 +301,13 @@ name="answers"
 id="answers">
 
 
-<input type="hidden"
-name="personal_message"
-id="personal_message">
-
-
 </form>
-
 
 
 <div class="card" id="card">
 
 
-<h1>
-❤️ Just One Journey ❤️
-</h1>
+<h1>❤️ Just One Journey ❤️</h1>
 
 
 <div id="question">
@@ -308,9 +321,11 @@ Loading...
 Yes ❤️
 </button>
 
+
 <button id="no">
 No 💔
 </button>
+
 
 <button id="maybe">
 Don't Know 🤍
@@ -345,12 +360,12 @@ const questions=[
 ];
 
 
-let currentQuestion=0;
+let current=0;
 
 let answers=[];
 
 
-const questionBox=document.getElementById("question");
+const question=document.getElementById("question");
 
 const card=document.getElementById("card");
 
@@ -364,20 +379,7 @@ const maybe=document.getElementById("maybe");
 
 function showQuestion(){
 
-
-questionBox.style.opacity="0";
-
-
-setTimeout(()=>{
-
-questionBox.innerHTML=
-questions[currentQuestion];
-
-questionBox.style.opacity="1";
-
-
-},200);
-
+question.innerHTML=questions[current];
 
 }
 
@@ -391,7 +393,7 @@ function saveAnswer(answer){
 
 answers.push({
 
-question:questions[currentQuestion],
+question:questions[current],
 
 answer:answer
 
@@ -399,35 +401,28 @@ answer:answer
 
 
 
-if(currentQuestion < questions.length-1){
+if(current < questions.length-1){
 
-
-currentQuestion++;
+current++;
 
 showQuestion();
-
 
 }
 
 else{
 
-
 finish();
 
-
 }
 
 
 }
-
 
 
 
 yes.onclick=()=>saveAnswer("Yes ❤️");
 
-
 no.onclick=()=>saveAnswer("No 💔");
-
 
 maybe.onclick=()=>saveAnswer("Don't Know 🤍");
 
@@ -435,7 +430,7 @@ maybe.onclick=()=>saveAnswer("Don't Know 🤍");
 
 
 
-function sendResponse(){
+function finish(){
 
 
 let message="";
@@ -443,26 +438,19 @@ let message="";
 
 answers.forEach((item,index)=>{
 
-
-message +=
-
+message+=
 "Q"+(index+1)+": "+
-
 item.question+
-
 "\nAnswer: "+
-
 item.answer+
-
 "\n\n";
-
 
 });
 
 
 
-document.getElementById("answers").value =
-message;
+document.getElementById("answers").value=message;
+
 
 
 fetch(
@@ -480,25 +468,8 @@ document.getElementById("web3form")
 );
 
 
-}
-  function finish(){
 
-
-let userMessage = prompt(
-"Anything you want to say? ❤️"
-);
-
-
-document.getElementById("personal_message").value =
-userMessage || "No additional message";
-
-
-
-sendResponse();
-
-
-
-let finalAnswer =
+let finalAnswer=
 answers[answers.length-1].answer;
 
 
@@ -508,77 +479,61 @@ if(finalAnswer==="Yes ❤️"){
 
 card.innerHTML=`
 
-<h1>❤️ You Said YES ❤️</h1>
+<h1>❤️ Yes ❤️</h1>
 
 
 <p style="
+font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 font-size:16px;
-line-height:1.55;
+line-height:1.5;
 color:#444;
-max-width:520px;
-margin:12px auto;
-text-align:center;
+margin-top:10px;
 ">
 
 
-I didn't create this page just to ask you a question... ❤️
+I didn't create this page just to ask a question... ❤️
 
 <br><br>
 
-I created it because you are someone special to me.
-
+I created it because you are special to me.
 
 <br><br>
 
 I promise to care for you,
 respect you,
-support your dreams,
-and stand beside you through every smile and every challenge.
-
+support you,
+and stand beside you through every moment.
 
 <br><br>
 
 I may not promise a perfect life,
-but I promise to choose you,
-understand you,
-and always try to make you happy. ❤️
-
+but I promise to always choose you. ❤️
 
 <br><br>
 
-Thank you for choosing me.
-
-
-<br><br>
-
-
-<span style="
-font-family:'Great Vibes',cursive;
-font-size:40px;
+<b style="
+font-family:Georgia,serif;
+font-size:35px;
 color:#ff4081;
 ">
 
 I Love You Vasu ❤️
 
-</span>
+</b>
 
 
 <br><br>
 
-
-💍 Forever starts here ✨
-
+💍 Forever starts here
 
 </p>
 
 `;
 
-
 startHearts();
 
 
 }
-
 
 else{
 
@@ -590,34 +545,20 @@ card.innerHTML=`
 
 <p style="
 font-size:16px;
-line-height:1.6;
+line-height:1.5;
 color:#444;
-max-width:520px;
-margin:auto;
 ">
 
 
 Thank you for answering honestly. ❤️
 
-
 <br><br>
-
 
 I respect your feelings and your decision.
 
-
 <br><br>
 
-
-I wish you happiness,
-peace and success always.
-
-
-<br><br>
-
-
-Keep smiling 😊
-
+I wish you happiness always. 😊
 
 </p>
 
@@ -644,14 +585,11 @@ heart.className="hearts";
 
 
 heart.innerHTML=
-
 ["❤️","💖","💕","💗"]
-
 [Math.floor(Math.random()*4)];
 
 
-heart.style.left =
-Math.random()*100+"vw";
+heart.style.left=Math.random()*100+"vw";
 
 
 heart.style.top="100vh";
@@ -668,7 +606,6 @@ heart.remove();
 },4000);
 
 
-
 },300);
 
 
@@ -680,4 +617,4 @@ heart.remove();
 
 </body>
 
-</html>  
+</html>
