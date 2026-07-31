@@ -1,153 +1,576 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>For Someone Special ❤️</title>
-  <style>
-    body{margin:0;font-family:Arial;background:linear-gradient(135deg,#ff9ec4,#ffd6e7);display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
-    .card{background:#fff;padding:30px;border-radius:20px;max-width:650px;width:90%;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.2)}
-    button{padding:12px 24px;margin:10px;border:none;border-radius:30px;font-size:18px;cursor:pointer}
-    #yes{background:#4caf50;color:#fff}
-    #no{background:#f44336;color:#fff;position:relative}
-    #maybe{background:#9c27b0;color:#fff;position:relative}
-    .hearts{position:fixed;font-size:24px;animation:f 4s linear forwards;pointer-events:none}
-    @keyframes f{to{transform:translateY(-100vh);opacity:0}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Someone Special ❤️</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+
+background:
+linear-gradient(
+135deg,
+#ff9ec4,
+#ffc3d8,
+#ffd6e7,
+#f7d6ff,
+#ffe8f3);
+
+background-size:400% 400%;
+
+animation:bgMove 12s ease infinite;
+
+}
+
+@keyframes bgMove{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.card{
+
+width:90%;
+max-width:700px;
+
+padding:35px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.22);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.35);
+
+box-shadow:
+0 20px 45px rgba(0,0,0,.18);
+
+text-align:center;
+
+animation:fade .7s;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+h1{
+
+color:#ff3f7f;
+
+margin-bottom:10px;
+
+}
+
+#question{
+
+font-size:26px;
+
+line-height:1.7;
+
+color:#444;
+
+margin:30px 0;
+
+min-height:120px;
+
+}
+
+.buttons{
+
+display:flex;
+
+justify-content:center;
+
+gap:18px;
+
+flex-wrap:wrap;
+
+}
+
+button{
+
+padding:14px 28px;
+
+font-size:18px;
+
+border:none;
+
+border-radius:35px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.06);
+
+}
+
+#yes{
+
+background:#4CAF50;
+
+color:white;
+
+}
+
+#no{
+
+background:#F44336;
+
+color:white;
+
+}
+
+#maybe{
+
+background:#8E44AD;
+
+color:white;
+
+}
+
+.hearts{
+
+position:fixed;
+
+font-size:26px;
+
+pointer-events:none;
+
+animation:fly 4s linear forwards;
+
+}
+
+@keyframes fly{
+
+0%{
+
+transform:translateY(0) scale(.8);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(-900px) scale(1.5);
+
+opacity:0;
+
+}
+
+}
+
+.small{
+
+font-size:14px;
+
+color:#666;
+
+margin-top:15px;
+
+}
+
+</style>
+
 </head>
+
 <body>
-  <form id="web3form" action="https://api.web3forms.com/submit" method="POST" style="display:none;">
-  <input type="hidden" name="access_key" value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
-  <input type="hidden" name="subject" value="❤️ New Proposal Response">
-  <input type="hidden" name="answer" id="answer">
-  </form>
-  <div class="card" id="card">
-    <h2 id="q"></h2>
-    <div>
-      <button id="yes">Yes ❤️</button>
-      <button id="no">No 💔</button>
-      <button id="maybe">Don't Know 🤔</button>
-    </div>
-  </div>
 
-  <script>
-    // Questions
-    const qs = [
-      "Do you smile when you see my messages? 😊",
-      "Do you enjoy talking to me? ❤️",
-      "Have I become someone special to you? 🥹",
-      "Can I be your safe place? 🤍",
-      "Would you let me make your bad days a little better? 🌸",
-      "Will you let me heal your bad days, celebrate your good days, hold your hand through every challenge, and stand by your side forever? 💍❤️✨",
-      "Will you hold my hand and never let it go? ❤️",
-      "Will you grow old with me? ❤️",
-      "Will you marry me? 💍❤️"
-    ];
+<form
+id="web3form"
+action="https://api.web3forms.com/submit"
+method="POST"
+style="display:none;">
 
-    // Elements
-    const q = document.getElementById('q');
-    const yes = document.getElementById('yes');
-    const no = document.getElementById('no');
-    const maybe = document.getElementById('maybe');
-    const card = document.getElementById('card');
+<input
+type="hidden"
+name="access_key"
+value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
 
-    // State (persist basic progress in localStorage so values don't disappear on reload)
-    let i = Number(localStorage.getItem('proposal_index') || 0);
-    let completed = localStorage.getItem('proposal_completed') === 'true';
+<input
+type="hidden"
+name="subject"
+value="❤️ Vasu Proposal Response">
 
-    function renderQuestion() {
-      if (completed) return showFinal();
-      q.textContent = qs[i] || '';
-    }
+<input
+type="hidden"
+name="answers"
+id="answers">
 
-    // Move a button to a random spot (used for 'no' and 'maybe')
-    function run(el) {
-      // ensure we have element and it's positioned
-      el.style.position = 'fixed';
-      const padding = 20; // keep away from edges
-      const w = Math.max(80, el.offsetWidth);
-      const h = Math.max(30, el.offsetHeight);
-      const left = Math.random() * (window.innerWidth - w - padding*2) + padding;
-      const top = Math.random() * (window.innerHeight - h - padding*2) + padding;
-      el.style.left = left + 'px';
-      el.style.top = top + 'px';
-      el.style.transition = 'left 0.15s, top 0.15s';
-    }
+</form>
 
-    // Make hearts float up on the screen
-    function spawnHeart(x, y) {
-      const heart = document.createElement('div');
-      heart.className = 'hearts';
-      heart.textContent = '❤️';
-      heart.style.left = (x - 12) + 'px';
-      heart.style.top = (y - 12) + 'px';
-      heart.style.fontSize = (12 + Math.random()*28) + 'px';
-      document.body.appendChild(heart);
-      // remove after animation
-      setTimeout(() => heart.remove(), 4100);
-    }
+<div
+class="card"
+id="card">
 
-    // Final screen when user completes all questions
-    function showFinal() {
-      completed = true;
-      localStorage.setItem('proposal_completed', 'true');
-      // Clear card and show final message
-      card.innerHTML = `
-        <h1>❤️ You said YES ❤️</h1>
-        <p style="line-height:1.8">You know... I didn't make this page just to ask — I made it because every question came from my heart. Thank you for being here. 💖</p>
-        <button id="again" style="background:#2196f3;color:#fff;border-radius:12px;padding:10px 18px;font-size:16px;margin-top:12px">Play Again</button>
-      `;
-   document.getElementById("answer").value = "User answered YES to all proposal questions ❤️";
+<h1>❤️ Just One Journey ❤️</h1>
+
+<div
+id="question">
+
+Loading...
+
+</div>
+
+<div
+class="buttons">
+
+<button
+id="yes">
+
+Yes ❤️
+
+</button>
+
+<button
+id="no">
+
+No 💔
+
+</button>
+
+<button
+id="maybe">
+
+Don't Know 🤍
+
+</button>
+
+</div>
+
+<div class="small">
+
+Answer honestly... ❤️
+
+</div>
+
+</div>
+
+<script>
+
+const questions=[
+
+{
+q:"Do you smile when you see my messages? 😊"
+},
+
+{
+q:"Do you enjoy talking to me? ❤️"
+},
+
+{
+q:"Have I become someone special to you? 🥹"
+},
+
+{
+q:"Can I be your safe place? 🤍"
+},
+
+{
+q:"Would you let me make your bad days a little better? 🌸"
+},{
+q:"Will you let me heal your bad days, celebrate your good days, hold your hand through every challenge, and stand by your side forever? 💍❤️✨"
+},
+
+{
+q:"Will you hold my hand and never let it go? ❤️"
+},
+
+{
+q:"Will you grow old with me? ❤️"
+},
+
+{
+q:"Will you marry me? 💍❤️"
+}
+
+];
+
+let currentQuestion=0;
+
+const allAnswers=[];
+
+const question=document.getElementById("question");
+
+const yes=document.getElementById("yes");
+
+const no=document.getElementById("no");
+
+const maybe=document.getElementById("maybe");
+
+function loadQuestion(){
+
+question.innerHTML=questions[currentQuestion].q;
+
+}
+
+loadQuestion();
+
+function saveAnswer(answer){
+
+allAnswers.push({
+
+question:questions[currentQuestion].q,
+
+answer:answer
+
+});
+
+currentQuestion++;
+
+if(currentQuestion<questions.length){
+
+question.style.opacity="0";
+
+setTimeout(()=>{
+
+loadQuestion();
+
+question.style.opacity="1";
+
+},250);
+
+}
+
+else{
+
+finishQuiz();
+
+}
+
+}
+
+yes.onclick=()=>saveAnswer("Yes ❤️");
+
+no.onclick=()=>saveAnswer("No 💔");
+
+maybe.onclick=()=>saveAnswer("Don't Know 🤍");
+
+function finishQuiz(){
+
+let message="";
+
+allAnswers.forEach((item,index)=>{
+
+message+=
+
+"Q"+(index+1)+": "+item.question+
+
+"\nAnswer: "+item.answer+
+
+"\n\n";
+
+});
+
+document.getElementById("answers").value=message;
+
 document.getElementById("web3form").submit();
-      // generate floating hearts periodically
-      const interval = setInterval(() => {
-        const x = window.innerWidth/2 + (Math.random()-0.5)*300;
-        const y = window.innerHeight - 40;
-        spawnHeart(x, y);
-      }, 400);
 
-      // remove interval if user navigates away or clicks play again
-      document.getElementById('again').onclick = () => {
-        clearInterval(interval);
-        completed = false;
-        i = 0;
-        localStorage.setItem('proposal_index', '0');
-        localStorage.setItem('proposal_completed', 'false');
-        // restore original markup (simple way)
-        location.reload();
-      };
-    }
+const finalAnswer=
 
-    // Button behaviors
-    no.addEventListener('mouseover', () => run(no));
-    maybe.addEventListener('mouseover', () => run(maybe));
+allAnswers[allAnswers.length-1].answer;
 
-    yes.addEventListener('click', () => {
-      if (completed) return;
-      i++;
-      if (i < qs.length) {
-        localStorage.setItem('proposal_index', String(i));
-        renderQuestion();
-      } else {
-        localStorage.setItem('proposal_index', String(qs.length));
-        showFinal();
-      }
-    });
+if(finalAnswer==="Yes ❤️"){
 
-    // Prevent keyboard focus trap moving buttons off screen
-    no.addEventListener('focus', () => run(no));
-    maybe.addEventListener('focus', () => run(maybe));
+document.getElementById("card").innerHTML=`
 
-    // Initialize
-    renderQuestion();
+<h1>❤️ You said YES ❤️</h1>
 
-    // Accessibility: allow keyboard to press yes with Enter
-    yes.addEventListener('keyup', (e) => { if (e.key === 'Enter') yes.click(); });
+<p style="line-height:1.9;font-size:20px;color:#444;">
 
-    // If user reloads and had progressed, show progress
-    if (i > 0 && i < qs.length && !completed) {
-      renderQuestion();
-    }
-  </script>
+You know... I didn't make this page just to ask you a question.
+
+I made it because I wanted you to know how much you mean to me. ❤️
+
+<br><br>
+
+If you really chose me,
+
+I promise I'll never take your love for granted.
+
+I'll respect you,
+
+support your dreams,
+
+stand by your side through every challenge,
+
+celebrate every little victory with you,
+
+and keep choosing you every single day.
+
+<br><br>
+
+No relationship is perfect,
+
+but if it's with you,
+
+I'll always choose understanding over ego,
+
+patience over anger,
+
+and us over everything else.
+
+<br><br>
+
+Thank you for saying YES. ❤️
+
+<br><br>
+
+From this moment,
+
+my heart is yours...
+
+I'll hold your hand through every challenge,
+
+celebrate every smile,
+
+wipe every tear I can,
+
+and never stop loving the person you are.
+
+<br><br>
+
+I promise to keep choosing you...
+
+today,
+
+tomorrow,
+
+and every day after that.
+
+❤️
+
+<br><br>
+
+❤️ Forever starts here... 💍✨
+
+<br><br>
+
+<b style="font-size:28px;color:#ff4081;">
+
+I Love You Vasu ❤️
+
+</b>
+
+</p>
+
+`;
+
+setInterval(()=>{
+
+const heart=document.createElement("div");
+
+heart.className="hearts";
+
+heart.innerHTML=["❤️","💖","💕","💗"][Math.floor(Math.random()*4)];
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.top="100vh";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>heart.remove(),4000);
+
+},200);else{
+
+document.getElementById("card").innerHTML=`
+
+<h1 style="color:#ff4081;">
+
+Thank You ❤️
+
+</h1>
+
+<p style="line-height:1.9;font-size:20px;color:#444;">
+
+Thank you for answering honestly.
+
+<br><br>
+
+I truly respect your feelings.
+
+No matter what your answer is,
+
+I'm happy that you took the time to complete this.
+
+<br><br>
+
+I wish you nothing but happiness,
+
+peace,
+
+good health,
+
+and success in everything you do.
+
+<br><br>
+
+Take care of yourself.
+
+Always keep smiling. 😊
+
+</p>
+
+`;
+
+}
+
+}
+
+</script>
+
 </body>
+
 </html>
+
+}
