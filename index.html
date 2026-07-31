@@ -19,15 +19,19 @@ box-sizing:border-box;
 body{
 
 min-height:100vh;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
 
 font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 
-overflow:hidden;
+overflow:auto;
 
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
 #ff9ec4,
 #ffc3d8,
@@ -36,6 +40,7 @@ background:linear-gradient(
 );
 
 background-size:400% 400%;
+
 animation:bgMove 12s ease infinite;
 
 }
@@ -43,24 +48,30 @@ animation:bgMove 12s ease infinite;
 
 @keyframes bgMove{
 
-0%{background-position:0% 50%}
-
-50%{background-position:100% 50%}
-
-100%{background-position:0% 50%}
-
+0%{
+background-position:0% 50%;
 }
 
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
 
 
 .card{
 
 width:92%;
-max-width:600px;
 
-padding:22px;
+max-width:620px;
 
-border-radius:25px;
+padding:24px;
+
+border-radius:28px;
 
 background:rgba(255,255,255,0.35);
 
@@ -73,16 +84,15 @@ text-align:center;
 }
 
 
-
 h1{
 
 font-family:Georgia,serif;
 
-font-size:38px;
+font-size:40px;
 
 color:#ff3f7f;
 
-margin-bottom:10px;
+margin-bottom:12px;
 
 }
 
@@ -90,7 +100,7 @@ margin-bottom:10px;
 
 #question{
 
-min-height:80px;
+min-height:85px;
 
 display:flex;
 
@@ -100,13 +110,11 @@ justify-content:center;
 
 font-size:18px;
 
-line-height:1.35;
+line-height:1.4;
 
 color:#444;
 
 padding:8px;
-
-text-align:center;
 
 }
 
@@ -122,7 +130,7 @@ gap:10px;
 
 flex-wrap:wrap;
 
-margin-top:8px;
+margin-top:10px;
 
 }
 
@@ -130,11 +138,11 @@ margin-top:8px;
 
 button{
 
-padding:10px 20px;
+padding:10px 22px;
 
 border:none;
 
-border-radius:25px;
+border-radius:30px;
 
 font-size:15px;
 
@@ -174,54 +182,11 @@ color:white;
 
 
 
-.messageBox{
-
-margin-top:15px;
-
-}
-
-
-.messageBox p{
-
-font-size:14px;
-
-color:#666;
-
-margin-bottom:6px;
-
-}
-
-
-
-textarea{
-
-width:100%;
-
-height:65px;
-
-border:none;
-
-border-radius:15px;
-
-padding:10px;
-
-font-family:inherit;
-
-font-size:14px;
-
-resize:none;
-
-outline:none;
-
-}
-
-
-
 .hearts{
 
 position:fixed;
 
-font-size:24px;
+font-size:25px;
 
 animation:fly 4s linear forwards;
 
@@ -231,7 +196,7 @@ animation:fly 4s linear forwards;
 
 @keyframes fly{
 
-from{
+0%{
 
 transform:translateY(0);
 
@@ -239,7 +204,7 @@ opacity:1;
 
 }
 
-to{
+100%{
 
 transform:translateY(-900px);
 
@@ -286,6 +251,7 @@ padding:9px 16px;
 
 }
 
+
 </style>
 
 </head>
@@ -295,28 +261,39 @@ padding:9px 16px;
 
 
 <form id="web3form"
+
 action="https://api.web3forms.com/submit"
+
 method="POST"
+
 style="display:none;">
 
 
 <input type="hidden"
+
 name="access_key"
+
 value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
 
 
 <input type="hidden"
+
 name="subject"
+
 value="❤️ Someone Special Response">
 
 
 <input type="hidden"
+
 name="answers"
+
 id="answers">
 
 
 <input type="hidden"
+
 name="personal_message"
+
 id="personal_message">
 
 
@@ -359,25 +336,8 @@ Don't Know 🤍
 </div>
 
 
-
-<div class="messageBox">
-
-<p>
-Anything you want to share? ❤️
-</p>
-
-
-<textarea 
-id="userMessage"
-placeholder="Write your thoughts here...">
-</textarea>
-
-
 </div>
-
-
-</div>
-  <script>
+<script>
 
 const questions=[
 
@@ -452,26 +412,25 @@ finish();
 
 }
 
-
 }
 
 
 
-document.getElementById("yes").onclick=function(){
+document.getElementById("yes").onclick=()=>{
 
 saveAnswer("Yes ❤️");
 
 };
 
 
-document.getElementById("no").onclick=function(){
+document.getElementById("no").onclick=()=>{
 
 saveAnswer("No 💔");
 
 };
 
 
-document.getElementById("maybe").onclick=function(){
+document.getElementById("maybe").onclick=()=>{
 
 saveAnswer("Don't Know 🤍");
 
@@ -502,48 +461,12 @@ item.answer+
 
 "\n\n";
 
-
 });
-
-
-
-let userMessage =
-document.getElementById("userMessage").value;
-
-
-
-message +=
-
-"Anything you want to share: "
-
-+
-
-userMessage;
 
 
 
 document.getElementById("answers").value =
 message;
-
-
-document.getElementById("personal_message").value =
-userMessage || "No message";
-
-
-
-fetch(
-"https://api.web3forms.com/submit",
-{
-
-method:"POST",
-
-body:new FormData(
-document.getElementById("web3form")
-)
-
-}
-
-);
 
 
 
@@ -569,7 +492,7 @@ margin-top:10px;
 ">
 
 
-I didn't create this page just to ask a question... ❤️
+I didn't create this page just to ask you a question... ❤️
 
 
 <br><br>
@@ -584,7 +507,7 @@ I created it because you are someone special to me.
 I promise to care for you,
 respect you,
 support your dreams,
-and stand beside you through every moment.
+and stand beside you through every smile and every challenge.
 
 
 <br><br>
@@ -616,8 +539,60 @@ I Love You ❤️
 
 </p>
 
-`;
 
+<div style="margin-top:20px;">
+
+
+<p style="
+font-size:14px;
+color:#666;
+margin-bottom:8px;
+">
+
+ఏమైనా చెప్పాలి అనుకుంటున్నారా? ❤️
+
+</p>
+
+
+<textarea
+id="finalMessage"
+placeholder="మీ మనసులో ఉన్నది రాయవచ్చు ❤️"
+style="
+width:100%;
+height:75px;
+border-radius:15px;
+padding:10px;
+border:1px solid #ddd;
+font-family:inherit;
+resize:none;
+">
+</textarea>
+
+
+<br>
+
+
+<button
+type="button"
+onclick="sendFinalMessage()"
+style="
+margin-top:10px;
+background:#ff4081;
+color:white;
+padding:10px 25px;
+border:none;
+border-radius:25px;
+">
+
+Submit ❤️
+
+</button>
+
+
+</div>
+
+
+`;
 
 startHearts();
 
@@ -633,27 +608,20 @@ card.innerHTML=`
 
 
 <p style="
-font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 font-size:16px;
 line-height:1.5;
 color:#444;
 ">
 
-
 Thank you for answering honestly. ❤️
 
-
 <br><br>
-
 
 I respect your feelings and your decision.
 
-
 <br><br>
 
-
 I wish you happiness always. 😊
-
 
 </p>
 
@@ -663,6 +631,41 @@ I wish you happiness always. 😊
 
 
 }
+
+
+
+
+
+function sendFinalMessage(){
+
+
+let finalMessage =
+document.getElementById("finalMessage").value;
+
+
+
+document.getElementById("personal_message").value =
+finalMessage || "No message";
+
+
+
+fetch(
+"https://api.web3forms.com/submit",
+{
+
+method:"POST",
+
+body:new FormData(
+document.getElementById("web3form")
+)
+
+}
+
+);
+
+
+}
+
 
 
 
