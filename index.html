@@ -16,23 +16,18 @@ padding:0;
 box-sizing:border-box;
 }
 
-
 body{
 
 min-height:100vh;
-
 display:flex;
-
 justify-content:center;
-
 align-items:center;
 
 font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 
 overflow:hidden;
 
-background:
-linear-gradient(
+background:linear-gradient(
 135deg,
 #ff9ec4,
 #ffc3d8,
@@ -41,25 +36,18 @@ linear-gradient(
 );
 
 background-size:400% 400%;
-
-animation:bgMove 12s infinite;
+animation:bgMove 12s ease infinite;
 
 }
 
 
 @keyframes bgMove{
 
-0%{
-background-position:0% 50%;
-}
+0%{background-position:0% 50%}
 
-50%{
-background-position:100% 50%;
-}
+50%{background-position:100% 50%}
 
-100%{
-background-position:0% 50%;
-}
+100%{background-position:0% 50%}
 
 }
 
@@ -68,14 +56,13 @@ background-position:0% 50%;
 .card{
 
 width:92%;
-
 max-width:600px;
 
 padding:22px;
 
 border-radius:25px;
 
-background:rgba(255,255,255,.35);
+background:rgba(255,255,255,0.35);
 
 backdrop-filter:blur(15px);
 
@@ -119,6 +106,8 @@ color:#444;
 
 padding:8px;
 
+text-align:center;
+
 }
 
 
@@ -152,16 +141,6 @@ font-size:15px;
 cursor:pointer;
 
 font-family:inherit;
-
-transition:.3s;
-
-}
-
-
-
-button:hover{
-
-transform:scale(1.05);
 
 }
 
@@ -200,7 +179,6 @@ color:white;
 margin-top:15px;
 
 }
-
 
 
 .messageBox p{
@@ -275,7 +253,6 @@ opacity:0;
 
 @media(max-width:600px){
 
-
 .card{
 
 width:94%;
@@ -307,11 +284,9 @@ padding:9px 16px;
 
 }
 
-
 }
 
 </style>
-
 
 </head>
 
@@ -319,13 +294,9 @@ padding:9px 16px;
 <body>
 
 
-
 <form id="web3form"
-
 action="https://api.web3forms.com/submit"
-
 method="POST"
-
 style="display:none;">
 
 
@@ -336,7 +307,7 @@ value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
 
 <input type="hidden"
 name="subject"
-value="❤️ Vasu Proposal Response">
+value="❤️ Someone Special Response">
 
 
 <input type="hidden"
@@ -353,7 +324,6 @@ id="personal_message">
 
 
 
-
 <div class="card" id="card">
 
 
@@ -367,19 +337,21 @@ Loading...
 </div>
 
 
+
 <div class="buttons">
 
-<button id="yes">
+
+<button type="button" id="yes">
 Yes ❤️
 </button>
 
 
-<button id="no">
+<button type="button" id="no">
 No 💔
 </button>
 
 
-<button id="maybe">
+<button type="button" id="maybe">
 Don't Know 🤍
 </button>
 
@@ -390,9 +362,8 @@ Don't Know 🤍
 
 <div class="messageBox">
 
-
 <p>
-Do you want to share anything? ❤️
+Anything you want to share? ❤️
 </p>
 
 
@@ -431,7 +402,7 @@ const questions=[
 ];
 
 
-let current=0;
+let currentQuestion=0;
 
 let answers=[];
 
@@ -444,8 +415,8 @@ const card=document.getElementById("card");
 
 function showQuestion(){
 
-questionBox.innerHTML=
-questions[current];
+questionBox.innerHTML =
+questions[currentQuestion];
 
 }
 
@@ -459,16 +430,17 @@ function saveAnswer(answer){
 
 answers.push({
 
-question:questions[current],
+question:questions[currentQuestion],
 
 answer:answer
 
 });
 
 
-if(current < questions.length-1){
 
-current++;
+if(currentQuestion < questions.length-1){
+
+currentQuestion++;
 
 showQuestion();
 
@@ -485,21 +457,21 @@ finish();
 
 
 
-document.getElementById("yes").onclick=()=>{
+document.getElementById("yes").onclick=function(){
 
 saveAnswer("Yes ❤️");
 
 };
 
 
-document.getElementById("no").onclick=()=>{
+document.getElementById("no").onclick=function(){
 
 saveAnswer("No 💔");
 
 };
 
 
-document.getElementById("maybe").onclick=()=>{
+document.getElementById("maybe").onclick=function(){
 
 saveAnswer("Don't Know 🤍");
 
@@ -550,12 +522,11 @@ userMessage;
 
 
 
-document.getElementById("answers").value=
+document.getElementById("answers").value =
 message;
 
 
-
-document.getElementById("personal_message").value=
+document.getElementById("personal_message").value =
 userMessage || "No message";
 
 
@@ -590,6 +561,7 @@ card.innerHTML=`
 
 
 <p style="
+font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 font-size:16px;
 line-height:1.5;
 color:#444;
@@ -597,7 +569,7 @@ margin-top:10px;
 ">
 
 
-I didn't create this page just to ask you a question... ❤️
+I didn't create this page just to ask a question... ❤️
 
 
 <br><br>
@@ -646,6 +618,7 @@ I Love You ❤️
 
 `;
 
+
 startHearts();
 
 
@@ -660,6 +633,7 @@ card.innerHTML=`
 
 
 <p style="
+font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 font-size:16px;
 line-height:1.5;
 color:#444;
@@ -692,7 +666,6 @@ I wish you happiness always. 😊
 
 
 
-
 function startHearts(){
 
 
@@ -705,15 +678,12 @@ let heart=document.createElement("div");
 heart.className="hearts";
 
 
-heart.innerHTML=
-
+heart.innerHTML =
 ["❤️","💖","💕","💗"]
-
 [Math.floor(Math.random()*4)];
 
 
-heart.style.left=
-
+heart.style.left =
 Math.random()*100+"vw";
 
 
@@ -738,4 +708,9 @@ heart.remove();
 }
 
 
-   </script>
+</script>
+
+
+</body>
+
+</html>
