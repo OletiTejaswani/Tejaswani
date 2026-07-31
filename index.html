@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>For Someone Special ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -12,39 +15,59 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, sans-serif;
 }
 
 body{
+
 height:100vh;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 overflow:hidden;
 
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
 #ff9ec4,
 #ffc3d8,
-#ffd6e7,
-#f7d6ff
+#f7d6ff,
+#ffe8f3
 );
 
 background-size:400% 400%;
-animation:bgMove 12s infinite;
+
+animation:bgMove 12s ease infinite;
+
+font-family:'Poppins',sans-serif;
+
 }
 
 
 @keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
 }
 
 
 .card{
 
 width:90%;
+
 max-width:700px;
 
 padding:35px;
@@ -55,7 +78,8 @@ background:rgba(255,255,255,.25);
 
 backdrop-filter:blur(18px);
 
-box-shadow:0 20px 45px rgba(0,0,0,.2);
+box-shadow:
+0 20px 45px rgba(0,0,0,.2);
 
 text-align:center;
 
@@ -63,22 +87,35 @@ text-align:center;
 
 
 h1{
+
+font-family:'Great Vibes',cursive;
+
+font-size:55px;
+
 color:#ff3f7f;
+
 margin-bottom:20px;
+
 }
 
 
 #question{
 
-font-size:25px;
-line-height:1.6;
-color:#444;
-
-min-height:120px;
+min-height:130px;
 
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
+font-size:25px;
+
+line-height:1.7;
+
+font-weight:500;
+
+color:#444;
 
 }
 
@@ -86,9 +123,14 @@ justify-content:center;
 .buttons{
 
 display:flex;
+
 justify-content:center;
+
 gap:15px;
+
 flex-wrap:wrap;
+
+margin-top:20px;
 
 }
 
@@ -107,6 +149,8 @@ cursor:pointer;
 
 transition:.3s;
 
+font-family:'Poppins',sans-serif;
+
 }
 
 
@@ -120,6 +164,7 @@ transform:scale(1.08);
 #yes{
 
 background:#4CAF50;
+
 color:white;
 
 }
@@ -128,6 +173,7 @@ color:white;
 #no{
 
 background:#F44336;
+
 color:white;
 
 }
@@ -136,6 +182,7 @@ color:white;
 #maybe{
 
 background:#8E44AD;
+
 color:white;
 
 }
@@ -147,6 +194,8 @@ position:fixed;
 
 font-size:28px;
 
+pointer-events:none;
+
 animation:fly 4s linear forwards;
 
 }
@@ -154,17 +203,24 @@ animation:fly 4s linear forwards;
 
 @keyframes fly{
 
-from{
+0%{
+
 transform:translateY(0);
+
 opacity:1;
+
 }
 
-to{
+100%{
+
 transform:translateY(-900px);
+
 opacity:0;
+
 }
 
 }
+
 
 </style>
 
@@ -175,23 +231,32 @@ opacity:0;
 
 
 <form id="web3form"
+
 action="https://api.web3forms.com/submit"
+
 method="POST"
+
 style="display:none;">
 
 
 <input type="hidden"
+
 name="access_key"
+
 value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
 
 
 <input type="hidden"
+
 name="subject"
+
 value="❤️ Vasu Proposal Response">
 
 
 <input type="hidden"
+
 name="answers"
+
 id="answers">
 
 
@@ -200,144 +265,78 @@ id="answers">
 
 <div class="card" id="card">
 
-
 <h1>❤️ Just One Journey ❤️</h1>
 
 
-<div id="question"></div>
+<div id="question">
+
+Loading...
+
+</div>
 
 
 <div class="buttons">
 
-<button id="yes">Yes ❤️</button>
+<button id="yes">
+Yes ❤️
+</button>
 
-<button id="no">No 💔</button>
+<button id="no">
+No 💔
+</button>
 
-<button id="maybe">Don't Know 🤍</button>
+<button id="maybe">
+Don't Know 🤍
+</button>
 
 </div>
 
 
 </div>
-  <script>
+  function finish(){
 
-const questions=[
-
-"Do you smile when you see my messages? 😊",
-
-"Do you enjoy talking to me? ❤️",
-
-"Have I become someone special to you? 🥹",
-
-"Can I be your safe place? 🤍",
-
-"Would you let me make your bad days a little better? 🌸",
-
-"Will you let me heal your bad days, celebrate your good days, hold your hand through every challenge, and stand by your side forever? 💍❤️✨",
-
-"Will you hold my hand and never let it go? ❤️",
-
-"Will you grow old with me? ❤️",
-
-"Will you marry me? 💍❤️"
-
-];
+let userMessage = prompt("Anything you want to say? ❤️");
 
 
-let current=0;
-
-let answers=[];
-
-
-const question=document.getElementById("question");
-
-const yes=document.getElementById("yes");
-
-const no=document.getElementById("no");
-
-const maybe=document.getElementById("maybe");
+document.getElementById("personal_message").value =
+userMessage || "No additional message";
 
 
-function load(){
-
-question.innerHTML=questions[current];
-
-}
-
-load();
+let message="";
 
 
+answers.forEach((item,index)=>{
 
-function save(answer){
-
-
-answers.push({
-
-question:questions[current],
-
-answer:answer
-
-});
-
-
-if(current < questions.length-1){
-
-current++;
-
-load();
-
-}
-
-else{
-
-sendResult();
-
-}
-
-
-}
-
-
-
-yes.onclick=()=>save("Yes ❤️");
-
-no.onclick=()=>save("No 💔");
-
-maybe.onclick=()=>save("Don't Know 🤍");
-
-
-
-
-function sendResult(){
-
-
-let text="";
-
-
-answers.forEach((a,i)=>{
-
-text+=
-"Q"+(i+1)+": "+a.question+
-"\nAnswer: "+a.answer+
+message +=
+"Q"+(index+1)+": "+
+item.question+
+"\nAnswer: "+
+item.answer+
 "\n\n";
 
 });
 
 
-document.getElementById("answers").value=text;
+message +=
+"Personal Message: "+
+userMessage;
 
-fetch("https://api.web3forms.com/submit", {
-    method: "POST",
-    body: new FormData(document.getElementById("web3form"))
-})
-.then(response => response.json())
-.then(data => {
-    console.log("Response sent");
+
+document.getElementById("answers").value = message;
+
+
+
+fetch("https://api.web3forms.com/submit",{
+
+method:"POST",
+
+body:new FormData(document.getElementById("web3form"))
+
 });
 
 
 
-let finalAnswer=
+let finalAnswer =
 answers[answers.length-1].answer;
 
 
@@ -345,104 +344,92 @@ answers[answers.length-1].answer;
 if(finalAnswer==="Yes ❤️"){
 
 
-document.getElementById("card").innerHTML=`
+card.innerHTML=`
 
 <h1>❤️ You Said YES ❤️</h1>
 
-
-<p style="font-size:20px;line-height:1.8;color:#444">
-
+<p style="
+font-family:'Poppins',sans-serif;
+font-size:20px;
+line-height:1.9;
+color:#444;
+">
 
 I didn't create this page just to ask a question...
 
 I created it because I wanted you to know how special you are to me. ❤️
 
-
 <br><br>
 
-
-I promise to respect you,
-
+I promise to care for you,
+respect you,
 support your dreams,
-
-stand beside you through every challenge,
-
-and choose you every single day.
-
+and stand beside you through every challenge.
 
 <br><br>
 
-
-No relationship is perfect,
-
-but with understanding, trust and care,
-
-we can create something beautiful together.
-
+I will celebrate your happiness,
+listen to your heart,
+and always try to bring a smile on your face.
 
 <br><br>
 
-
-Thank you for choosing me ❤️
-
+I don't promise a perfect life,
+but I promise to choose you,
+understand you,
+and be there for you.
 
 <br><br>
 
-
-<b style="font-size:28px;color:#ff4081">
+<b style="
+font-family:'Great Vibes',cursive;
+font-size:45px;
+color:#ff4081;
+">
 
 I Love You Vasu ❤️
 
 </b>
 
-
 <br><br>
 
-
 💍 Forever starts here ✨
-
 
 </p>
 
 `;
-
 
 startHearts();
 
 
 }
 
-
 else{
 
 
-document.getElementById("card").innerHTML=`
+card.innerHTML=`
 
 <h1>Thank You ❤️</h1>
 
-
-<p style="font-size:20px;line-height:1.8;color:#444">
-
+<p style="
+font-size:20px;
+line-height:1.8;
+color:#444;
+">
 
 Thank you for answering honestly. ❤️
 
-
 <br><br>
-
 
 I respect your feelings and your decision.
 
-
-No matter what,
+<br><br>
 
 I wish you happiness, peace and success always.
 
-
 <br><br>
 
-
 Keep smiling 😊
-
 
 </p>
 
@@ -450,56 +437,4 @@ Keep smiling 😊
 
 }
 
-
 }
-
-
-
-
-function startHearts(){
-
-
-setInterval(()=>{
-
-
-let heart=document.createElement("div");
-
-
-heart.className="hearts";
-
-
-heart.innerHTML=
-["❤️","💖","💕","💗"]
-[Math.floor(Math.random()*4)];
-
-
-heart.style.left=Math.random()*100+"vw";
-
-
-heart.style.top="100vh";
-
-
-document.body.appendChild(heart);
-
-
-
-setTimeout(()=>{
-
-heart.remove();
-
-},4000);
-
-
-
-},300);
-
-
-}
-
-
-</script>
-
-
-</body>
-
-</html>
