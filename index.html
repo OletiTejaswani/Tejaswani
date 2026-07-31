@@ -326,7 +326,14 @@ text+=
 
 document.getElementById("answers").value=text;
 
-document.getElementById("web3form").submit();
+fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    body: new FormData(document.getElementById("web3form"))
+})
+.then(response => response.json())
+.then(data => {
+    console.log("Response sent");
+});
 
 
 
