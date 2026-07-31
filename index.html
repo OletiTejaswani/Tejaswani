@@ -16,6 +16,7 @@ padding:0;
 box-sizing:border-box;
 }
 
+
 body{
 
 min-height:100vh;
@@ -26,9 +27,9 @@ justify-content:center;
 
 align-items:center;
 
-overflow:hidden;
-
 font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
+
+overflow:hidden;
 
 background:
 linear-gradient(
@@ -41,7 +42,7 @@ linear-gradient(
 
 background-size:400% 400%;
 
-animation:bgMove 12s ease infinite;
+animation:bgMove 12s infinite;
 
 }
 
@@ -70,11 +71,11 @@ width:92%;
 
 max-width:600px;
 
-padding:24px;
+padding:22px;
 
 border-radius:25px;
 
-background:rgba(255,255,255,0.32);
+background:rgba(255,255,255,.35);
 
 backdrop-filter:blur(15px);
 
@@ -88,13 +89,13 @@ text-align:center;
 
 h1{
 
+font-family:Georgia,serif;
+
 font-size:38px;
 
 color:#ff3f7f;
 
-margin-bottom:8px;
-
-font-family:'Georgia',serif;
+margin-bottom:10px;
 
 }
 
@@ -102,7 +103,7 @@ font-family:'Georgia',serif;
 
 #question{
 
-min-height:85px;
+min-height:80px;
 
 display:flex;
 
@@ -114,15 +115,9 @@ font-size:18px;
 
 line-height:1.35;
 
-font-weight:500;
-
 color:#444;
 
 padding:8px;
-
-text-align:center;
-
-transition:.3s;
 
 }
 
@@ -138,7 +133,7 @@ gap:10px;
 
 flex-wrap:wrap;
 
-margin-top:10px;
+margin-top:8px;
 
 }
 
@@ -148,11 +143,11 @@ button{
 
 padding:10px 20px;
 
-font-size:15px;
-
 border:none;
 
 border-radius:25px;
+
+font-size:15px;
 
 cursor:pointer;
 
@@ -200,6 +195,50 @@ color:white;
 
 
 
+.messageBox{
+
+margin-top:15px;
+
+}
+
+
+
+.messageBox p{
+
+font-size:14px;
+
+color:#666;
+
+margin-bottom:6px;
+
+}
+
+
+
+textarea{
+
+width:100%;
+
+height:65px;
+
+border:none;
+
+border-radius:15px;
+
+padding:10px;
+
+font-family:inherit;
+
+font-size:14px;
+
+resize:none;
+
+outline:none;
+
+}
+
+
+
 .hearts{
 
 position:fixed;
@@ -214,7 +253,7 @@ animation:fly 4s linear forwards;
 
 @keyframes fly{
 
-0%{
+from{
 
 transform:translateY(0);
 
@@ -222,7 +261,7 @@ opacity:1;
 
 }
 
-100%{
+to{
 
 transform:translateY(-900px);
 
@@ -236,11 +275,12 @@ opacity:0;
 
 @media(max-width:600px){
 
+
 .card{
 
 width:94%;
 
-padding:20px;
+padding:18px;
 
 }
 
@@ -256,8 +296,6 @@ font-size:32px;
 
 font-size:16px;
 
-min-height:75px;
-
 }
 
 
@@ -269,10 +307,11 @@ padding:9px 16px;
 
 }
 
+
 }
 
-
 </style>
+
 
 </head>
 
@@ -280,9 +319,13 @@ padding:9px 16px;
 <body>
 
 
+
 <form id="web3form"
+
 action="https://api.web3forms.com/submit"
+
 method="POST"
+
 style="display:none;">
 
 
@@ -301,13 +344,22 @@ name="answers"
 id="answers">
 
 
+<input type="hidden"
+name="personal_message"
+id="personal_message">
+
+
 </form>
+
+
 
 
 <div class="card" id="card">
 
 
-<h1>❤️ Just One Journey ❤️</h1>
+<h1>
+❤️ Just One Journey ❤️
+</h1>
 
 
 <div id="question">
@@ -330,6 +382,25 @@ No 💔
 <button id="maybe">
 Don't Know 🤍
 </button>
+
+
+</div>
+
+
+
+<div class="messageBox">
+
+
+<p>
+Do you want to share anything? ❤️
+</p>
+
+
+<textarea 
+id="userMessage"
+placeholder="Write your thoughts here...">
+</textarea>
+
 
 </div>
 
@@ -365,21 +436,16 @@ let current=0;
 let answers=[];
 
 
-const question=document.getElementById("question");
+const questionBox=document.getElementById("question");
 
 const card=document.getElementById("card");
-
-const yes=document.getElementById("yes");
-
-const no=document.getElementById("no");
-
-const maybe=document.getElementById("maybe");
 
 
 
 function showQuestion(){
 
-question.innerHTML=questions[current];
+questionBox.innerHTML=
+questions[current];
 
 }
 
@@ -398,7 +464,6 @@ question:questions[current],
 answer:answer
 
 });
-
 
 
 if(current < questions.length-1){
@@ -420,11 +485,25 @@ finish();
 
 
 
-yes.onclick=()=>saveAnswer("Yes ❤️");
+document.getElementById("yes").onclick=()=>{
 
-no.onclick=()=>saveAnswer("No 💔");
+saveAnswer("Yes ❤️");
 
-maybe.onclick=()=>saveAnswer("Don't Know 🤍");
+};
+
+
+document.getElementById("no").onclick=()=>{
+
+saveAnswer("No 💔");
+
+};
+
+
+document.getElementById("maybe").onclick=()=>{
+
+saveAnswer("Don't Know 🤍");
+
+};
 
 
 
@@ -438,18 +517,46 @@ let message="";
 
 answers.forEach((item,index)=>{
 
-message+=
+
+message +=
+
 "Q"+(index+1)+": "+
+
 item.question+
+
 "\nAnswer: "+
+
 item.answer+
+
 "\n\n";
+
 
 });
 
 
 
-document.getElementById("answers").value=message;
+let userMessage =
+document.getElementById("userMessage").value;
+
+
+
+message +=
+
+"Anything you want to share: "
+
++
+
+userMessage;
+
+
+
+document.getElementById("answers").value=
+message;
+
+
+
+document.getElementById("personal_message").value=
+userMessage || "No message";
 
 
 
@@ -469,7 +576,7 @@ document.getElementById("web3form")
 
 
 
-let finalAnswer=
+let finalAnswer =
 answers[answers.length-1].answer;
 
 
@@ -479,11 +586,10 @@ if(finalAnswer==="Yes ❤️"){
 
 card.innerHTML=`
 
-<h1>❤️ Yes ❤️</h1>
+<h1>❤️ You Said YES ❤️</h1>
 
 
 <p style="
-font-family:'Aptos Narrow','Arial Narrow',Arial,sans-serif;
 font-size:16px;
 line-height:1.5;
 color:#444;
@@ -491,25 +597,33 @@ margin-top:10px;
 ">
 
 
-I didn't create this page just to ask a question... ❤️
+I didn't create this page just to ask you a question... ❤️
+
 
 <br><br>
 
-I created it because you are special to me.
+
+I created it because you are someone special to me.
+
 
 <br><br>
+
 
 I promise to care for you,
 respect you,
-support you,
+support your dreams,
 and stand beside you through every moment.
 
+
 <br><br>
+
 
 I may not promise a perfect life,
 but I promise to always choose you. ❤️
 
+
 <br><br>
+
 
 <b style="
 font-family:Georgia,serif;
@@ -517,14 +631,16 @@ font-size:35px;
 color:#ff4081;
 ">
 
-I Love You Vasu ❤️
+I Love You ❤️
 
 </b>
 
 
 <br><br>
 
-💍 Forever starts here
+
+💍 Forever starts here ✨
+
 
 </p>
 
@@ -552,13 +668,18 @@ color:#444;
 
 Thank you for answering honestly. ❤️
 
+
 <br><br>
+
 
 I respect your feelings and your decision.
 
+
 <br><br>
 
+
 I wish you happiness always. 😊
+
 
 </p>
 
@@ -585,11 +706,15 @@ heart.className="hearts";
 
 
 heart.innerHTML=
+
 ["❤️","💖","💕","💗"]
+
 [Math.floor(Math.random()*4)];
 
 
-heart.style.left=Math.random()*100+"vw";
+heart.style.left=
+
+Math.random()*100+"vw";
 
 
 heart.style.top="100vh";
@@ -606,15 +731,11 @@ heart.remove();
 },4000);
 
 
+
 },300);
 
 
 }
 
 
-</script>
-
-
-</body>
-
-</html>
+   </script>
