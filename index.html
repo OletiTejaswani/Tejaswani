@@ -16,6 +16,11 @@
   </style>
 </head>
 <body>
+  <form id="web3form" action="https://api.web3forms.com/submit" method="POST" style="display:none;">
+  <input type="hidden" name="access_key" value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
+  <input type="hidden" name="subject" value="❤️ New Proposal Response">
+  <input type="hidden" name="answer" id="answer">
+  </form>
   <div class="card" id="card">
     <h2 id="q"></h2>
     <div>
@@ -92,7 +97,8 @@
         <p style="line-height:1.8">You know... I didn't make this page just to ask — I made it because every question came from my heart. Thank you for being here. 💖</p>
         <button id="again" style="background:#2196f3;color:#fff;border-radius:12px;padding:10px 18px;font-size:16px;margin-top:12px">Play Again</button>
       `;
-
+   document.getElementById("answer").value = "User answered YES to all proposal questions ❤️";
+document.getElementById("web3form").submit();
       // generate floating hearts periodically
       const interval = setInterval(() => {
         const x = window.innerWidth/2 + (Math.random()-0.5)*300;
