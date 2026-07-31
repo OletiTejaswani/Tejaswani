@@ -18,7 +18,6 @@ padding:0;
 box-sizing:border-box;
 }
 
-
 body{
 
 min-height:100vh;
@@ -31,6 +30,8 @@ align-items:center;
 
 overflow:hidden;
 
+font-family:'Poppins',sans-serif;
+
 background:
 linear-gradient(
 135deg,
@@ -42,71 +43,39 @@ linear-gradient(
 
 background-size:400% 400%;
 
-animation:bgMove 12s ease infinite;
-
-font-family:'Poppins',sans-serif;
+animation:bgMove 12s infinite;
 
 }
 
 
 @keyframes bgMove{
 
-0%{
-background-position:0% 50%;
-}
+0%{background-position:0% 50%;}
 
-50%{
-background-position:100% 50%;
-}
+50%{background-position:100% 50%;}
 
-100%{
-background-position:0% 50%;
-}
+100%{background-position:0% 50%;}
 
 }
 
 
 .card{
 
-width:90%;
+width:92%;
 
-max-width:650px;
+max-width:620px;
 
-padding:35px;
+padding:30px;
 
-border-radius:30px;
+border-radius:28px;
 
-background:rgba(255,255,255,0.30);
+background:rgba(255,255,255,0.32);
 
 backdrop-filter:blur(18px);
 
-box-shadow:
-0 20px 45px rgba(0,0,0,.18);
+box-shadow:0 20px 45px rgba(0,0,0,.18);
 
 text-align:center;
-
-animation:fade .8s ease;
-
-}
-
-
-@keyframes fade{
-
-from{
-
-opacity:0;
-
-transform:translateY(20px);
-
-}
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
 
 }
 
@@ -115,31 +84,28 @@ h1{
 
 font-family:'Great Vibes',cursive;
 
-font-size:55px;
+font-size:48px;
 
 color:#ff3f7f;
 
-margin-bottom:20px;
+margin-bottom:15px;
 
 }
 
 
-
 #question{
 
-min-height:120px;
+min-height:110px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:center;
 
-font-size:24px;
+align-items:center;
 
-line-height:1.7;
+font-size:21px;
 
-font-weight:500;
+line-height:1.5;
 
 color:#444;
 
@@ -148,32 +114,30 @@ transition:.3s;
 }
 
 
-
 .buttons{
 
 display:flex;
 
 justify-content:center;
 
-gap:15px;
+gap:12px;
 
 flex-wrap:wrap;
 
-margin-top:20px;
+margin-top:15px;
 
 }
 
 
-
 button{
 
-padding:13px 25px;
+padding:12px 24px;
 
 border:none;
 
-border-radius:35px;
+border-radius:30px;
 
-font-size:17px;
+font-size:16px;
 
 cursor:pointer;
 
@@ -186,10 +150,9 @@ transition:.3s;
 
 button:hover{
 
-transform:scale(1.08);
+transform:scale(1.05);
 
 }
-
 
 
 #yes{
@@ -219,24 +182,20 @@ color:white;
 }
 
 
-
 .hearts{
 
 position:fixed;
 
-font-size:28px;
-
-pointer-events:none;
+font-size:25px;
 
 animation:fly 4s linear forwards;
 
 }
 
 
-
 @keyframes fly{
 
-0%{
+from{
 
 transform:translateY(0);
 
@@ -244,7 +203,7 @@ opacity:1;
 
 }
 
-100%{
+to{
 
 transform:translateY(-900px);
 
@@ -256,44 +215,35 @@ opacity:0;
 
 
 
-/* Mobile */
-
 @media(max-width:600px){
-
 
 .card{
 
-width:92%;
-
-padding:25px;
+padding:22px;
 
 }
-
 
 h1{
 
-font-size:42px;
+font-size:38px;
 
 }
-
 
 #question{
 
-font-size:19px;
+font-size:18px;
 
-min-height:100px;
+min-height:90px;
 
 }
-
 
 button{
 
-font-size:15px;
+font-size:14px;
 
-padding:12px 18px;
+padding:11px 18px;
 
 }
-
 
 }
 
@@ -316,30 +266,22 @@ style="display:none;">
 
 
 <input type="hidden"
-
 name="access_key"
-
 value="d85518a6-ebbb-4132-84b4-6b56d1cff0fe">
 
 
 <input type="hidden"
-
 name="subject"
-
 value="❤️ Vasu Proposal Response">
 
 
 <input type="hidden"
-
 name="answers"
-
 id="answers">
 
 
 <input type="hidden"
-
 name="personal_message"
-
 id="personal_message">
 
 
@@ -356,35 +298,29 @@ id="personal_message">
 
 
 <div id="question">
-
 Loading...
-
 </div>
 
 
 <div class="buttons">
 
-
 <button id="yes">
 Yes ❤️
 </button>
-
 
 <button id="no">
 No 💔
 </button>
 
-
 <button id="maybe">
 Don't Know 🤍
 </button>
 
-
 </div>
 
 
 </div>
-<script>
+  <script>
 
 const questions=[
 
@@ -428,7 +364,8 @@ const maybe=document.getElementById("maybe");
 
 function showQuestion(){
 
-questionBox.style.opacity=0;
+
+questionBox.style.opacity="0";
 
 
 setTimeout(()=>{
@@ -436,7 +373,7 @@ setTimeout(()=>{
 questionBox.innerHTML=
 questions[currentQuestion];
 
-questionBox.style.opacity=1;
+questionBox.style.opacity="1";
 
 
 },200);
@@ -485,25 +422,16 @@ finish();
 
 
 
-yes.onclick=()=>{
 
-saveAnswer("Yes ❤️");
-
-};
+yes.onclick=()=>saveAnswer("Yes ❤️");
 
 
-no.onclick=()=>{
-
-saveAnswer("No 💔");
-
-};
+no.onclick=()=>saveAnswer("No 💔");
 
 
-maybe.onclick=()=>{
+maybe.onclick=()=>saveAnswer("Don't Know 🤍");
 
-saveAnswer("Don't Know 🤍");
 
-};
 
 
 
@@ -516,7 +444,7 @@ let message="";
 answers.forEach((item,index)=>{
 
 
-message+=
+message +=
 
 "Q"+(index+1)+": "+
 
@@ -532,22 +460,19 @@ item.answer+
 });
 
 
-document.getElementById("answers").value=message;
 
+document.getElementById("answers").value =
+message;
 
 
 fetch(
-
 "https://api.web3forms.com/submit",
-
 {
 
 method:"POST",
 
 body:new FormData(
-
 document.getElementById("web3form")
-
 )
 
 }
@@ -587,25 +512,23 @@ card.innerHTML=`
 
 
 <p style="
-font-size:18px;
-line-height:1.8;
+font-size:16px;
+line-height:1.55;
 color:#444;
-max-width:550px;
-margin:auto;
+max-width:520px;
+margin:12px auto;
+text-align:center;
 ">
 
 
-I didn't create this page just to ask a question... ❤️
-
+I didn't create this page just to ask you a question... ❤️
 
 <br><br>
-
 
 I created it because you are someone special to me.
 
 
 <br><br>
-
 
 I promise to care for you,
 respect you,
@@ -615,15 +538,13 @@ and stand beside you through every smile and every challenge.
 
 <br><br>
 
-
 I may not promise a perfect life,
 but I promise to choose you,
 understand you,
-and always keep trying to make you happy. ❤️
+and always try to make you happy. ❤️
 
 
 <br><br>
-
 
 Thank you for choosing me.
 
@@ -633,7 +554,7 @@ Thank you for choosing me.
 
 <span style="
 font-family:'Great Vibes',cursive;
-font-size:45px;
+font-size:40px;
 color:#ff4081;
 ">
 
@@ -659,7 +580,6 @@ startHearts();
 }
 
 
-
 else{
 
 
@@ -669,10 +589,10 @@ card.innerHTML=`
 
 
 <p style="
-font-size:18px;
-line-height:1.8;
+font-size:16px;
+line-height:1.6;
 color:#444;
-max-width:550px;
+max-width:520px;
 margin:auto;
 ">
 
@@ -689,7 +609,6 @@ I respect your feelings and your decision.
 <br><br>
 
 
-No matter what,
 I wish you happiness,
 peace and success always.
 
@@ -731,7 +650,7 @@ heart.innerHTML=
 [Math.floor(Math.random()*4)];
 
 
-heart.style.left=
+heart.style.left =
 Math.random()*100+"vw";
 
 
@@ -756,10 +675,9 @@ heart.remove();
 }
 
 
-
 </script>
 
 
 </body>
 
-</html>
+</html>  
